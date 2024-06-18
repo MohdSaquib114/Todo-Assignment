@@ -4,6 +4,7 @@ import axios from "axios"
 import { TodoListProvider } from "./TodoProvider"
 
 export default function TodoCreate() {
+  //TodoListProvider context eliminated the drop drilling problem
   const {setTodoList} = useContext(TodoListProvider)
   const [todoInputs,setTodoInputs] = useState({
     title:"",
@@ -11,11 +12,12 @@ export default function TodoCreate() {
     endDate:""
   })
 
+//Will get called whenever the form submit and sent data to backend to insert the new todo in the database
  async function handleSubmit(e){
     e.preventDefault()
     if(todoInputs.title === "" || todoInputs.startDate === "" || todoInputs.endDate === "" ) return
    try{
-    await axios.post("http://localhost:3000/api/todo",todoInputs)
+    await axios.post("https://todo-assignment-pvsm.onrender.com/todo",todoInputs)
    
      alert("Todo created")
      setTodoInputs({
@@ -23,7 +25,8 @@ export default function TodoCreate() {
       startDate:"",
       endDate:""
     })
-    const response = await axios.get("http://localhost:3000/api/todos")
+    //Refetching the todo list to render new created todo 
+    const response = await axios.get("https://todo-assignment-pvsm.onrender.com/api/todos")
     setTodoList(response.data.data)
 
    }catch(e){
