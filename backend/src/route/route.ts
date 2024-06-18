@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import Todo from "../schema";
+import mongoose from "mongoose";
 
 const router = Router()
 
@@ -42,7 +43,7 @@ router.post("/todo", async (req:Request,res:Response) =>{
 router.put("/todo/:id", async (req:Request,res:Response) =>{
     const { id } = req.params;
     const { title, startDate, endDate } = req.body;
-  
+
     try {
       const updatedTodo = await Todo.findByIdAndUpdate(
         id,
@@ -56,7 +57,7 @@ router.put("/todo/:id", async (req:Request,res:Response) =>{
   
       res.status(200).json(updatedTodo);
     } catch (error) {
-      
+      console.log(error)
       res.status(500).json({ message: 'An error occurred while updating the todo'});
     }
 })

@@ -7,7 +7,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-app.use("/api/", router)
+app.use("/api", router)
 
 const PORT = process.env.port 
 
