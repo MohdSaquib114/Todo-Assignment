@@ -9,6 +9,6 @@ app.use(express.json())
 app.use(cors())
 app.use("/api", router)
 
-const PORT = process.env.port 
+const PORT = process.env.port || 3000
 
 app.listen(PORT, ()=>console.log(`Server listening on port ${PORT}`))
